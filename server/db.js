@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-// const mongoURI =  "mongodb://root:4Gxus9xpt2Ne6K9H@127.0.0.1:27017";
 const mongoURI = "mongodb://127.0.0.1:27017";
 
 
