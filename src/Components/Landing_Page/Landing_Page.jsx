@@ -1,4 +1,5 @@
 import React from "react"; // Importing the necessary modules from React library
+
 import "./Landing_Page.css"; // Importing the CSS styles for the Landing_Page component
 
 // Defining the Function component Landing_Page
@@ -23,7 +24,7 @@ const Landing_Page = () => {
                   <div className="blue1 blob"></div> {/* Creating a different blue blob inside the second 'blob-cont' div */}
               </div>
             <h4>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eaque at quae ducimus. Suscipit omnis quibusdam non cum rem voluptatem!
+              Connecting patients in remote areas with trusted doctors and specialists instantly.
             </h4>
             <a href="#services"> {/* Creating a hyperlink to jump to the 'services' section */}
               <button className="button">Get Started</button> {/* Creating a button with class name 'button' */}

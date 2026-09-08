@@ -1,10 +1,12 @@
-// Login.jsx
+// Following code has been commented with appropriate comments for your reference.
 import React, { useState, useEffect } from 'react';
+// Apply CSS according to your design theme or the CSS provided in week 2 lab 2
+
 import { Link, useNavigate } from 'react-router-dom';
 import { API_URL } from '../../config';
-import './Login.css'; // optional CSS import
 
 const Login = () => {
+
   // State variables for email and password
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState('');
@@ -17,7 +19,7 @@ const Login = () => {
     if (sessionStorage.getItem("auth-token")) {
       navigate("/");
     }
-  }, [navigate]);
+  }, []);
 
   // Function to handle login form submission
   const login = async (e) => {
@@ -25,8 +27,13 @@ const Login = () => {
     // Send a POST request to the login API endpoint
     const res = await fetch(`${API_URL}/api/auth/login`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
     });
 
     // Parse the response JSON
@@ -59,7 +66,7 @@ const Login = () => {
             <h2>Login</h2>
           </div>
           <div className="login-text">
-            Are you a new member?{" "}
+            Are you a new member? 
             <span>
               <Link to="/signup" style={{ color: '#2190FF' }}>
                 Sign Up Here
@@ -69,9 +76,9 @@ const Login = () => {
           <br />
           <div className="login-form">
             <form onSubmit={login}>
-              {/* Email */}
               <div className="form-group">
                 <label htmlFor="email">Email</label>
+                {/* Input field for email */}
                 <input 
                   value={email} 
                   onChange={(e) => setEmail(e.target.value)} 
@@ -83,24 +90,23 @@ const Login = () => {
                   aria-describedby="helpId" 
                 />
               </div>
-
-              {/* Password */}
+              {/* Input field for password */}              
               <div className="form-group">
-                <label htmlFor="password">Password</label>
-                <input
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  type="password"
-                  name="password"
-                  id="password"
-                  className="form-control"
-                  placeholder="Enter your password"
-                  aria-describedby="helpId"
-                />
-              </div>
+               <label htmlFor="password">Password</label>
+               <input
+                 value={password}
+                 onChange={(e) => setPassword(e.target.value)}
+                 type="password"
+                 name="password"
+                 id="password"
+                 className="form-control"
+                 placeholder="Enter your password"
+                 aria-describedby="helpId"
+               />
+             </div>
 
-              {/* Buttons */}
               <div className="btn-group">
+                {/* Login button */}
                 <button type="submit" className="btn btn-primary mb-2 mr-1 waves-effect waves-light">
                   Login
                 </button>
@@ -114,4 +120,3 @@ const Login = () => {
 }
 
 export default Login;
-

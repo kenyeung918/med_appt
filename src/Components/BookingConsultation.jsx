@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import "./InstantConsultation.css";
+import "./BookingConsultation.css";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import FindDoctorSearchIC from "./FindDoctorSearchIC/FindDoctorSearchIC";
-import DoctorCardIC from "./DoctorCardIC/DoctorCardIC";
+import FindDoctorSearch from "./FindDoctorSearch/FindDoctorSearch";
+import DoctorCard from "./DoctorCard/DoctorCard";
 
-const InstantConsultation = () => {
+const BookingConsultation = () => {
   const [searchParams] = useSearchParams();
   const [doctors, setDoctors] = useState([]);
   const [filteredDoctors, setFilteredDoctors] = useState([]);
@@ -50,16 +50,16 @@ const InstantConsultation = () => {
   useEffect(() => {
     getDoctorsDetails();
     // Uncomment if you want auth check:
-    // const authtoken = sessionStorage.getItem("auth-token");
-    // if (!authtoken) {
-    //   navigate("/login");
-    // }
+    const authtoken = sessionStorage.getItem("auth-token");
+     if (!authtoken) {
+       navigate("/login");
+     }
   }, [searchParams]);
 
   return (
     <center>
       <div className="searchpage-container">
-        <FindDoctorSearchIC onSearch={handleSearch} />
+        <FindDoctorSearch onSearch={handleSearch} />
         <div className="search-results-container">
           {isSearched && (
             <center>
@@ -73,7 +73,7 @@ const InstantConsultation = () => {
               </h3>
               {filteredDoctors.length > 0 ? (
                 filteredDoctors.map((doctor) => (
-                  <DoctorCardIC
+                  <DoctorCard
                     className="doctorcard"
                     {...doctor}
                     key={doctor.name}
@@ -90,4 +90,4 @@ const InstantConsultation = () => {
   );
 };
 
-export default InstantConsultation;
+export default BookingConsultation ;
