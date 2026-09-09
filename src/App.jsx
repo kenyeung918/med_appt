@@ -15,6 +15,7 @@ import InstantConsultation from "./Components/InstantConsultationBooking/Instant
 import Notification from "./Components/Notification/Notification";
 import FindDoctorSearch from "./Components/FindDoctorSearch/FindDoctorSearch";
 import BookingConsultation from "./Components/BookingConsultation";
+import ReviewForm from "./Components/ReviewForm/ReviewForm";
 // import ReportsLayout from "./Components/ReportsLayout/ReportsLayout";
 
 
@@ -37,7 +38,8 @@ function App() {
           <Route path="/instant-consultation" element={<InstantConsultation />} />
           <Route path="/notification" element={<Notification />} />  
           <Route path="/find-doctor" element={<FindDoctorSearch />} />                    
-          <Route path="/booking-consultation" element={<BookingConsultation />} />
+          <Route path="/bookingconsultation" element={<BookingConsultation />} />
+          <Route path="/reviews" element={<ReviewForm />} />
           {/* <Route path="/reports" element={<ReportsLayout />} /> */}           
         </Routes>
       </BrowserRouter>

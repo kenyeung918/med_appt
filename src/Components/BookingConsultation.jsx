@@ -4,32 +4,35 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import FindDoctorSearch from "./FindDoctorSearch/FindDoctorSearch";
 import DoctorCard from "./DoctorCard/DoctorCard";
 
+
+
+
 const BookingConsultation = () => {
   const [searchParams] = useSearchParams();
   const [doctors, setDoctors] = useState([]);
   const [filteredDoctors, setFilteredDoctors] = useState([]);
   const [isSearched, setIsSearched] = useState(false);
 
-  const getDoctorsDetails = () => {
-    fetch("https://api.npoint.io/9a5543d36f1460da2f63")
-      .then((res) => res.json())
-      .then((data) => {
-        setDoctors(data);
+  const getDoctorsDetails = async () => {
+    try {
+      const speciality = searchParams.get("speciality");            
+      const res = await fetch(`http://localhost:8181/api/doctors?speciality=${searchParams.get("speciality") || ""}`);
+      const data = await res.json();
+      setDoctors(data);
 
-        const speciality = searchParams.get("speciality");
-        if (speciality) {
-          const filtered = data.filter(
-            (doctor) =>
-              doctor.speciality.toLowerCase() === speciality.toLowerCase()
-          );
-          setFilteredDoctors(filtered);
-          setIsSearched(true);
-        } else {
-          setFilteredDoctors([]);
-          setIsSearched(false);
-        }
-      })
-      .catch((err) => console.log(err));
+      if (speciality) {
+        const filtered = data.filter(
+          (doctor) => doctor.speciality.toLowerCase() === speciality.toLowerCase()
+        );
+        setFilteredDoctors(filtered);
+        setIsSearched(true);
+      } else {
+        setFilteredDoctors([]);
+        setIsSearched(false);
+      }
+    } catch (err) {
+      console.error("Error fetching doctors:", err);
+    }
   };
 
   const handleSearch = (searchText) => {
@@ -49,11 +52,11 @@ const BookingConsultation = () => {
 
   useEffect(() => {
     getDoctorsDetails();
-    // Uncomment if you want auth check:
-    const authtoken = sessionStorage.getItem("auth-token");
-     if (!authtoken) {
-       navigate("/login");
-     }
+    // Optional auth check:
+    // const authtoken = sessionStorage.getItem("auth-token");
+    // if (!authtoken) {
+    //   navigate("/login");
+    // }
   }, [searchParams]);
 
   return (
@@ -76,7 +79,7 @@ const BookingConsultation = () => {
                   <DoctorCard
                     className="doctorcard"
                     {...doctor}
-                    key={doctor.name}
+                    key={doctor._id}
                   />
                 ))
               ) : (
@@ -90,4 +93,4 @@ const BookingConsultation = () => {
   );
 };
 
-export default BookingConsultation ;
+export default BookingConsultation;
